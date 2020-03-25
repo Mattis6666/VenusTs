@@ -1,5 +1,5 @@
 import Discord from 'discord.js';
-import config from '../../config';
+import config from './config';
 import { Response } from 'node-fetch';
 
 export default {
@@ -10,7 +10,7 @@ export default {
         console.error(err);
         const errorChannel = client.channels.cache.get(config.errorChannel) || (await client.channels.fetch(config.errorChannel));
         (errorChannel as Discord.TextChannel).send(
-            config.developers.map(async dev => client.users.cache.get(dev) || (await client.users.fetch(dev))).join(' ') + '\n```' + err.stack + '```'
+            config.developers.map(async (dev: string) => client.users.cache.get(dev) || (await client.users.fetch(dev))).join(' ') + '\n```' + err.stack + '```'
         );
     },
     handleResponse(response: Response) {

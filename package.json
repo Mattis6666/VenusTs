@@ -4,13 +4,12 @@
     "main": "index.ts",
     "scripts": {
         "test": "tsc --noEmit --incremental=false && eslint '*/**/*.ts'",
-        "lint": "tsc --noEmit && eslint '*/**/*.ts' --quiet --fix",
-        "lintfix": "eslint '*/**/*.ts' --quiet --fix",
         "start": "node out/src/index",
+        "dev": "tsc && export NODE_ENV=development && npm run start",
+        "production": "tsc && export NODE_ENV=production && npm run start",
         "build": "tsc",
         "reinstall": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && yarn install",
-        "cleanup": "rm -rf out/*",
-        "dev": "npm run build && npm run start"
+        "cleanup": "rm -rf out/*"
     },
     "author": "",
     "license": "ISC",

@@ -1,4 +1,3 @@
-//const url = 'http://api.urbandictionary.com/v0/define?term=WORD';
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import fetch from 'node-fetch';
@@ -16,7 +15,10 @@ const callback = (message: Message, args: string[]) => {
                 .setURL(data.permalink)
                 .setImage('https://wjlta.files.wordpress.com/2013/07/ud-logo.jpg')
                 .addFields([
-                    { name: 'Definition', value: data.definition.replace(/(\[|\])/g, '') },
+                    {
+                        name: 'Definition',
+                        value: data.definition.replace(/(\[|\])/g, '')
+                    },
                     { name: 'Example', value: data.example.replace(/(\[|\])/g, '') }
                 ])
                 .setFooter(`👍 ${data.thumbs_up} | 👎 ${data.thumbs_down} | 👤 ${data.author} | 📆 ${data.written_on.replace(/T.+?Z/, '')}`);

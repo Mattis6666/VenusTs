@@ -1,8 +1,9 @@
 import fs from 'fs';
 import { Message } from 'discord.js';
-import config from '../config';
+import config from './utils/config';
 import Client from './interfaces/Client';
 import Command from './interfaces/Command';
+import db from './utils/mongo';
 
 const VenClient = new Client();
 const client = VenClient.Discord;
@@ -45,3 +46,5 @@ client.on('message', (message: Message) => {
 client.login(config.token);
 
 export default VenClient;
+
+console.log(db);
