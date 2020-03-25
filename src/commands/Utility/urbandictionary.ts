@@ -1,6 +1,6 @@
 //const url = 'http://api.urbandictionary.com/v0/define?term=WORD';
 import { Message } from 'discord.js';
-import Command from '../../types/Command';
+import Command from '../../interfaces/Command';
 import fetch from 'node-fetch';
 import functions from '../../utils/functions';
 

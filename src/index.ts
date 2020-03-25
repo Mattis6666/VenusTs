@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { Message } from 'discord.js';
 import config from '../config';
-import Client from './types/Client';
-import Command from './types/Command';
+import Client from './interfaces/Client';
+import Command from './interfaces/Command';
 
 const VenClient = new Client();
 const client = VenClient.Discord;
