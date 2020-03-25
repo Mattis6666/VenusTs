@@ -21,7 +21,7 @@ const callback = (message: Message, args: string[]) => {
                 ])
                 .setFooter(`👍 ${data.thumbs_up} | 👎 ${data.thumbs_down} | 👤 ${data.author} | 📆 ${data.written_on.replace(/T.+?Z/, '')}`);
 
-            message.channel.send(output);
+            return message.channel.send(output);
         });
 };
 
