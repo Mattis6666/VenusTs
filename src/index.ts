@@ -3,10 +3,17 @@ import { Message } from 'discord.js';
 import config from './utils/config';
 import Client from './interfaces/Client';
 import Command from './interfaces/Command';
-import db from './utils/mongo';
+import db from './database/mongo';
 
-const VenClient = new Client();
-const client = VenClient.Discord;
+const VenClient = new Client({
+    disableMentions: 'everyone',
+    presence: {
+        activity: {
+            name: `${config.defaultPrefix}help`,
+            type: 'LISTENING'
+        }
+    }
+});
 
 fs.readdirSync(__dirname + '/commands/').forEach(folder => {
     const commandFiles = fs.readdirSync(__dirname + `/commands/${folder}`).filter(file => file.endsWith('.js'));
@@ -17,13 +24,19 @@ fs.readdirSync(__dirname + '/commands/').forEach(folder => {
     }
 });
 
-client.once('ready', () => {
+VenClient.once('ready', () => {
     console.info('Logged in!');
 });
 
-client.on('message', (message: Message) => {
-    const guildPrefix = message.guild ? VenClient.prefixes.get(message.guild.id) : null;
-    const prefixRegex = new RegExp(`^(<@!?${client.user!.id}>|${(guildPrefix || config.defaultPrefix).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\s*`);
+VenClient.on('message', async (message: Message) => {
+    if (message.author.bot) return;
+
+    const guildSettings: any = message.guild ? VenClient.guildSettings.get(message.guild.id) || (await db.findOne({ guildId: message.guild.id })) : null;
+    if (guildSettings && !VenClient.guildSettings.has(message.guild!.id)) {
+        VenClient.guildSettings.set(message.guild!.id, guildSettings);
+    }
+    const guildPrefix = guildSettings?.settings.prefix;
+    const prefixRegex = new RegExp(`^(<@!?${VenClient.user!.id}>|${(guildPrefix || config.defaultPrefix).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\s*`);
     if (!prefixRegex.test(message.content)) return;
 
     const matched = message.content.match(prefixRegex);
@@ -36,15 +49,11 @@ client.on('message', (message: Message) => {
         .split(' ');
     const commandName = args.shift()?.toLowerCase();
     if (!commandName) return;
-    console.log(args);
+
     const command = VenClient.commands.get(commandName);
     if (!command || !command.callback) return;
 
-    command.callback(message, args);
+    command.callback(message, args, VenClient);
 });
 
-client.login(config.token);
-
-export default VenClient;
-
-console.log(db);
+VenClient.login(config.token);

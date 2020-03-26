@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import config from './config';
+import config from '../utils/config';
+import Guild from './schemas/GuildSchema';
 
 mongoose.connect(config.mongoString, {
     useCreateIndex: true,
@@ -15,10 +16,4 @@ db.once('open', () => {
     console.log('Connected to mongoDB Atlas!');
 });
 
-const guildSchema = new mongoose.Schema({
-    userID: String
-});
-
-const users = mongoose.model('guild', guildSchema);
-
-export default users;
+export default Guild;

@@ -2,9 +2,8 @@ import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 //import functions from '../../utils/functions';
 
-const callback = (message: Message, args: string[]) => {
-    args;
-    return message.channel.send('');
+const callback = (_message: Message, _args: string[]) => {
+    return;
 };
 
 export const command: Command = {
