@@ -3,7 +3,8 @@ import Command from '../../interfaces/Command';
 import VenClient from '../../interfaces/Client';
 import { getGuild } from '../../database/mongo';
 
-const callback = async (message: Message, args: string[], client: VenClient) => {
+const callback = async (message: Message, args: string[]) => {
+    const client = message.client as VenClient;
     if (!message.guild) return;
     const prefix = args[0];
     const guildSettings = await getGuild(message.guild.id);
@@ -20,11 +21,12 @@ export const command: Command = {
     description: '',
     usage: '',
     developerOnly: true,
-    requiresArgs: true,
+    requiresArgs: 1,
     guildOnly: false,
     dmOnly: false,
-    userPermissions: [],
-    botPermissions: [],
-    allowedRoles: [],
+    userPermissions: 'MANAGE_GUILD',
+    botPermissions: '',
+    modOnly: true,
+    adminOnly: true,
     callback: callback
 };

@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import fetch from 'node-fetch';
-import functions from '../../utils/functions';
+import functions from '../../utils/Util';
 
 const callback = (message: Message, args: string[]) => {
     fetch('http://api.urbandictionary.com/v0/define?term=' + args.join('%20'))
@@ -27,11 +27,12 @@ export const command: Command = {
     description: 'urban',
     usage: '',
     developerOnly: false,
-    requiresArgs: true,
+    requiresArgs: 1,
     guildOnly: false,
     dmOnly: false,
-    userPermissions: [],
-    botPermissions: [],
-    allowedRoles: [],
+    userPermissions: '',
+    botPermissions: '',
+    modOnly: false,
+    adminOnly: false,
     callback: callback
 };

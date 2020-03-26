@@ -29,7 +29,7 @@ VenClient.once('ready', () => {
 });
 
 VenClient.on('message', async (message: Message) => {
-    if (message.author.bot) return;
+    if (message.author.bot || !message.author || (message.guild && !message.member) || !message.client || !message.channel) return;
 
     const guildSettings: any = message.guild ? VenClient.guildSettings.get(message.guild.id) || (await db.findOne({ guildId: message.guild.id })) : null;
     if (message.guild && guildSettings && !VenClient.guildSettings.has(message.guild.id)) {
@@ -53,7 +53,20 @@ VenClient.on('message', async (message: Message) => {
     const command = VenClient.commands.get(commandName);
     if (!command || !command.callback) return;
 
-    command.callback(message, args, VenClient);
+    if (!config.developers.includes(message.author.id)) {
+        if (command.developerOnly) return;
+        if (message.guild && message.guild.me && message.channel.type === 'text') {
+            if (command.botPermissions && !message.channel.permissionsFor(message.guild.me)?.has(command.botPermissions)) {
+                return;
+            }
+            if (command.userPermissions && message.member && !message.channel.permissionsFor(message.member)?.has(command.userPermissions)) return;
+        }
+    }
+    if (command.guildOnly && !message.guild) return;
+    if (command.dmOnly && message.guild) return;
+    if (command.requiresArgs && !args.length) return;
+
+    command.callback(message, args);
 });
 
 VenClient.login(config.token);

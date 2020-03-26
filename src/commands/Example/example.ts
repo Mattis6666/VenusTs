@@ -3,10 +3,10 @@ import Command from '../../interfaces/Command';
 import VenClient from '../../interfaces/Client';
 //import functions from '../../utils/functions';
 
-const callback = (message: Message, args: string[]) => {
+const callback = (message: Message, _args: string[]) => {
     const client = message.client as VenClient;
     client;
-    args;
+    return;
 };
 
 export const command: Command = {
@@ -14,11 +14,12 @@ export const command: Command = {
     description: '',
     usage: '',
     developerOnly: true,
-    requiresArgs: true,
     guildOnly: false,
     dmOnly: false,
-    userPermissions: [],
-    botPermissions: [],
-    allowedRoles: [],
+    requiresArgs: 0,
+    userPermissions: '',
+    botPermissions: '',
+    modOnly: false,
+    adminOnly: false,
     callback: callback
 };
