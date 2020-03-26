@@ -1,12 +1,13 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import VenClient from '../../interfaces/Client';
-import db from '../../database/mongo';
+import { getGuild } from '../../database/mongo';
 
 const callback = async (message: Message, args: string[], client: VenClient) => {
     if (!message.guild) return;
     const prefix = args[0];
-    const guildSettings = await (db.findOne({ guildId: message.guild.id }) || db.create({ guildId: message.guild.id }));
+    const guildSettings = await getGuild(message.guild.id);
+    console.log(guildSettings);
     if (!guildSettings) return;
     guildSettings.settings.prefix = prefix;
     await guildSettings.save();

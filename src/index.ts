@@ -32,11 +32,11 @@ VenClient.on('message', async (message: Message) => {
     if (message.author.bot) return;
 
     const guildSettings: any = message.guild ? VenClient.guildSettings.get(message.guild.id) || (await db.findOne({ guildId: message.guild.id })) : null;
-    if (guildSettings && !VenClient.guildSettings.has(message.guild!.id)) {
-        VenClient.guildSettings.set(message.guild!.id, guildSettings);
+    if (message.guild && guildSettings && !VenClient.guildSettings.has(message.guild.id)) {
+        VenClient.guildSettings.set(message.guild.id, guildSettings);
     }
     const guildPrefix = guildSettings?.settings.prefix;
-    const prefixRegex = new RegExp(`^(<@!?${VenClient.user!.id}>|${(guildPrefix || config.defaultPrefix).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\s*`);
+    const prefixRegex = new RegExp(`^(<@!?${VenClient.user?.id}>|${(guildPrefix || config.defaultPrefix).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\s*`);
     if (!prefixRegex.test(message.content)) return;
 
     const matched = message.content.match(prefixRegex);

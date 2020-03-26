@@ -3,7 +3,7 @@ import config from './config';
 import { Response } from 'node-fetch';
 
 export default {
-    newEmbed(timestamp: boolean = false) {
+    newEmbed(timestamp = false) {
         return timestamp ? new Discord.MessageEmbed().setColor('RANDOM').setTimestamp() : new Discord.MessageEmbed().setColor('RANDOM');
     },
     async handleError(client: Discord.Client, err: Error) {

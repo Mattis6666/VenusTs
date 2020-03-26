@@ -3,22 +3,19 @@
     "version": "1.0.0",
     "main": "index.ts",
     "scripts": {
-        "test": "tsc --noEmit --incremental=false && eslint '*/**/*.ts'",
-        "start": "node out/src/index",
-        "dev": "tsc && export NODE_ENV=development && npm run start",
-        "production": "tsc && export NODE_ENV=production && npm run start",
         "build": "tsc",
+        "start": "node out/src/index",
+        "dev": "npm run build && export NODE_ENV=development && npm run start",
+        "production": "npm run build && export NODE_ENV=production && npm run start",
         "reinstall": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && yarn install",
-        "cleanup": "rm -rf out/*"
+        "cleanup": "rm -rf out/*",
+        "lint": "eslint . --ext .ts --fix"
     },
     "author": "",
     "license": "ISC",
     "description": "",
     "devDependencies": {
-        "@types/node": "^13.9.3",
-        "eslint": "^6.8.0",
-        "eslint-config-prettier": "^6.10.1",
-        "eslint-plugin-prettier": "^3.1.2"
+        "@types/node": "^13.9.3"
     },
     "dependencies": {
         "@types/config": "^0.0.36",

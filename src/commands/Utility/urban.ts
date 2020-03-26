@@ -14,13 +14,8 @@ const callback = (message: Message, args: string[]) => {
                 .setTitle(data.word)
                 .setURL(data.permalink)
                 .setImage('https://wjlta.files.wordpress.com/2013/07/ud-logo.jpg')
-                .addFields([
-                    {
-                        name: 'Definition',
-                        value: data.definition.replace(/(\[|\])/g, '')
-                    },
-                    { name: 'Example', value: data.example.replace(/(\[|\])/g, '') }
-                ])
+                .setDescription(data.definition.replace(/(\[|\])/g, ''))
+                .addField('Example', data.example.replace(/(\[|\])/g, ''))
                 .setFooter(`👍 ${data.thumbs_up} | 👎 ${data.thumbs_down} | 👤 ${data.author} | 📆 ${data.written_on.replace(/T.+?Z/, '')}`);
 
             return message.channel.send(output);

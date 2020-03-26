@@ -17,3 +17,7 @@ db.once('open', () => {
 });
 
 export default Guild;
+
+export const getGuild = async (guildId: string) => {
+    return (await Guild.findOne({ guildId: guildId })) || (await Guild.create({ guildId: guildId }));
+};
