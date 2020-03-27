@@ -7,9 +7,13 @@
         "start": "node out/src/index",
         "dev": "npm run build && export NODE_ENV=development && npm run start",
         "production": "npm run build && export NODE_ENV=production && npm run start",
-        "reinstall": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && yarn install",
         "cleanup": "rm -rf out/*",
-        "lint": "eslint . --ext .ts --fix"
+        "lint": "eslint . --ext .ts --fix",
+        "reinstall": "npm run cleanCache && npm run deleteModules && npm run deleteLock && npm run installModules",
+        "cleanCache": "npm cache clean --force",
+        "deleteModules": "rm -rf node_modules/*",
+        "deleteLock": "rm yarn.lock",
+        "installModules": "yarn install"
     },
     "author": "",
     "license": "ISC",
@@ -19,12 +23,14 @@
     },
     "dependencies": {
         "@types/config": "^0.0.36",
+        "@types/got": "^9.6.9",
         "@types/mongoose": "^5.7.7",
         "@types/node-fetch": "^2.5.5",
         "@types/ws": "^7.2.3",
         "config": "^3.3.0",
-        "discord.js": "^12.0.2",
+        "discord.js": "12.0.1",
         "discord.js-minesweeper": "^1.0.5",
+        "hastebin": "^0.2.1",
         "mongoose": "^5.9.6",
         "node-fetch": "^2.6.0",
         "typescript": "^3.8.3"

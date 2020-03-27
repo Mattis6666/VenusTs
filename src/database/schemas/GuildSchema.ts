@@ -6,7 +6,9 @@ export interface Guild extends mongoose.Document {
     settings: {
         prefix: string;
         welcomeChannel: string;
-        blockedChannels: [string];
+        botChannel: string;
+        blockedChannels: string[];
+        disabledCommands: string[];
     };
     roles: {
         admin: string;
@@ -35,7 +37,9 @@ const GuildSchema: mongoose.Schema = new mongoose.Schema({
     settings: {
         prefix: String,
         welcomeChannel: String,
-        blockedChannels: [String]
+        botChannel: String,
+        blockedChannels: [String],
+        disabledCommands: [String]
     },
     roles: {
         admin: String,
@@ -72,11 +76,12 @@ GuildSchema.methods.createWarn = async (message: Message, userId: string, reason
         date: message.createdAt
     };
     if (modLog) modLog.warns.push(warn);
-    else
+    else {
         guildSettings.modLog.push({
             userId: userId,
             warns: [warn]
         });
+    }
     guildSettings.save();
     return warn;
 };

@@ -24,6 +24,8 @@ const callback = (message: Message, args: string[]) => {
 
 export const command: Command = {
     name: 'urban',
+    category: '',
+    aliases: [],
     description: 'urban',
     usage: '',
     developerOnly: false,

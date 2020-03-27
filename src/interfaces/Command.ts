@@ -1,7 +1,10 @@
 import { PermissionString, Message } from 'discord.js';
+import { CommandCategories } from './CommandCategories';
 
 export default interface Command {
     name: string;
+    aliases: string[];
+    category: CommandCategories | '';
     description: string;
     usage: string;
     developerOnly: boolean;

@@ -3,8 +3,12 @@ import config from './config';
 import { Response } from 'node-fetch';
 
 export default {
-    newEmbed(timestamp = false) {
+    newEmbed(timestamp: boolean = false) {
         return timestamp ? new MessageEmbed().setColor('RANDOM').setTimestamp() : new MessageEmbed().setColor('RANDOM');
+    },
+    clean(text: string) {
+        if (typeof text === 'string') return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));
+        else return text;
     },
     async handleError(client: Client, err: Error) {
         console.error(err);
@@ -56,5 +60,12 @@ export default {
         const msg = await message.channel.send(text);
         msg.delete({ timeout: 1000 * 10 });
         message.delete({ timeout: 1000 * 10 });
+    },
+    numToMonth(num: number) {
+        if (num > 11 || num < 0) throw new RangeError('Invalid month, baka.');
+        return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][num];
+    },
+    nicerDates(date: Date) {
+        return `${this.numToMonth(date.getMonth())} ${date.getDate()} ${date.getFullYear()}`;
     }
 };

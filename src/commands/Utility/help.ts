@@ -1,16 +1,19 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import VenClient from '../../interfaces/Client';
-//import util from '../../utils/Util';
+import util from '../../utils/Util';
 
-const callback = (message: Message, _args: string[]) => {
+const callback = (message: Message, args: string[]) => {
     const client = message.client as VenClient;
+    const output = util.newEmbed(true);
+    if (!args.length) {
+    }
     client;
-    return;
+    output;
 };
 
 export const command: Command = {
-    name: 'example',
+    name: 'help',
     category: '',
     aliases: [],
     description: '',
