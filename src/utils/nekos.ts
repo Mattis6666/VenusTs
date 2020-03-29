@@ -39,8 +39,7 @@ export const sendImage = async (message: Message, args: string[], type: NekoSfwI
         .setImage(url)
         .setAuthor(message.author.tag, message.author.displayAvatarURL({ size: 256, dynamic: true }));
 
-    console.log(url);
     if (!member) return message.channel.send(output);
-    output.setDescription(description.replace('{{USER}}', message.author.toString()).replace('image.{{MEMBER}}', member.toString()));
+    output.setDescription(description.replace('{{USER}}', message.author.toString()).replace('{{MEMBER}}', member.toString()));
     return message.channel.send(output);
 };

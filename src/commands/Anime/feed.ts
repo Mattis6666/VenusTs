@@ -3,7 +3,7 @@ import Command from '../../interfaces/Command';
 import { Message } from 'discord.js';
 
 const callback = (message: Message, args: string[]) => {
-    return sendImage(message, args, 'feed', '{{USER}} feeds image.{{MEMBER}}!');
+    return sendImage(message, args, 'feed', '{{USER}} feeds {{MEMBER}}!');
 };
 
 export const command: Command = {
