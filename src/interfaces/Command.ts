@@ -4,8 +4,9 @@ import { CommandCategories } from './CommandCategories';
 export default interface Command {
     name: string;
     aliases: string[];
-    category: CommandCategories | '';
+    category: CommandCategories;
     description: string;
+    extended?: string;
     usage: string;
     developerOnly: boolean;
     guildOnly: boolean;

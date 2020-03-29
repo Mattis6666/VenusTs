@@ -50,21 +50,21 @@ VenClient.on('message', async (message: Message) => {
     const commandName = args.shift()?.toLowerCase();
     if (!commandName) return;
 
-    const command = VenClient.commands.get(commandName);
+    const command = VenClient.commands.get(commandName) || VenClient.commands.find(command => command.aliases.includes(commandName));
     if (!command || !command.callback) return;
 
     if (!config.developers.includes(message.author.id)) {
         if (command.developerOnly) return;
         if (message.guild && message.guild.me && message.channel.type === 'text') {
-            if (command.botPermissions && !message.channel.permissionsFor(message.guild.me)?.has(command.botPermissions)) {
+            if (command.botPermissions && !message.channel.permissionsFor(message.guild.me)!.has(command.botPermissions)) {
                 return;
             }
-            if (command.userPermissions && message.member && !message.channel.permissionsFor(message.member)?.has(command.userPermissions)) return;
+            if (command.userPermissions && message.member && !message.channel.permissionsFor(message.member)!.has(command.userPermissions)) return;
         }
     }
     if (command.guildOnly && !message.guild) return;
     if (command.dmOnly && message.guild) return;
-    if (command.requiresArgs && !args.length) return;
+    if (command.requiresArgs && args.length < command.requiresArgs) return;
 
     command.callback(message, args);
 });

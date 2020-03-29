@@ -157,10 +157,10 @@ discord.js-minesweeper@^1.0.5:
   resolved "https://registry.yarnpkg.com/discord.js-minesweeper/-/discord.js-minesweeper-1.0.5.tgz#9ffcf170843b64da9ac5241245fc2ae1102dc3c2"
   integrity sha512-1aKwIH4rsb1UBDmZ31cAX1FI6TKENZuNIKhhB9vQHSHMEirIf45g/gC/OhmeYiO/IimvNmzesK3eDaWXRjyKxA==
 
-discord.js@12.0.1:
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-12.0.1.tgz#58574c0c9acc598095f943d6b14da4725d37b8b9"
-  integrity sha512-lUlrkAWSb5YTB1WpSZHjeUXxGlHK8VDjrlHLEP4lJj+etFAellURpmRYl29OPJ/7arQWB879pP4rvhhzpdOF7w==
+discord.js@^12.1.1:
+  version "12.1.1"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-12.1.1.tgz#440043ab5a09d66311e8b975acd31bea4f8ed227"
+  integrity sha512-Y6+QfAUZkb9cy27cfNqUigAgYVSKTw9jPF3mN4UDMih3Em3VQ0WjGBdX1UbE8CwFkLOu5XWQSNPdsoStTR8c2Q==
   dependencies:
     "@discordjs/collection" "^0.1.5"
     abort-controller "^3.0.0"
@@ -382,6 +382,11 @@ ms@2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
+nekos.life@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/nekos.life/-/nekos.life-2.0.5.tgz#0b24fdf10b1aacf9f675654cf13eb27dba00bbfa"
+  integrity sha512-VRbi0vkoStpR/sHmu0gzlG0Dnh4xv8jAgmPXV7lcFwBGClcJE+x2XCr/WbbUkCtGzBzttJ/JEmImxd7tBtV6hA==
+
 node-fetch@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
@@ -535,6 +540,11 @@ string_decoder@~1.1.1:
   integrity sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==
   dependencies:
     safe-buffer "~5.1.0"
+
+tictactoejs@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/tictactoejs/-/tictactoejs-1.0.3.tgz#cc88fb3a875cef5c3aa96a31ad00264bd04212e2"
+  integrity sha1-zIj7Oodc71w6qWoxrQAmS9BCEuI=
 
 timed-out@^3.0.0:
   version "3.1.3"

@@ -11,7 +11,7 @@ const callback = (message: Message, _args: string[]) => {
 
 export const command: Command = {
     name: 'example',
-    category: '',
+    category: 'DEVELOPMENT',
     aliases: [],
     description: '',
     usage: '',

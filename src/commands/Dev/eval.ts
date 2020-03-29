@@ -6,7 +6,9 @@ import VenClient from '../../interfaces/Client';
 import { uploadHaste } from '../../utils/hastebin';
 
 const callback = async (message: Message, args: string[]) => {
+    // @ts-ignore
     const client = message.client as VenClient;
+    // @ts-ignore
     const [db, getguild, util] = [DB, getGuild, Util];
     try {
         let output =
@@ -27,12 +29,11 @@ const callback = async (message: Message, args: string[]) => {
         message.channel.send(Util.clean(err), { code: 'xl' });
     }
     return;
-    [client, db, getguild, util];
 };
 
 export const command: Command = {
     name: 'eval',
-    category: '',
+    category: 'DEVELOPMENT',
     aliases: [],
     description: '',
     usage: '',

@@ -21,7 +21,7 @@ const callback = async (message: Message, args: string[]) => {
 
 export const command: Command = {
     name: 'setprefix',
-    category: '',
+    category: 'SETTINGS',
     aliases: [],
     description: '',
     usage: '',

@@ -42,7 +42,7 @@ const callback = async (message: Message, args: string[]) => {
 
 export const command: Command = {
     name: 'modlog',
-    category: '',
+    category: 'MODERATION',
     aliases: [],
     description: '',
     usage: '',
