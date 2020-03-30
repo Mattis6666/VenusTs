@@ -1,7 +1,7 @@
 import NekoClient from 'nekos.life';
 import { NekoSfwImageOptions, NekoNsfwImageOptions } from '../interfaces/NekoOptions';
 import { Message, MessageEmbed } from 'discord.js';
-import Util from './Util';
+import { getMember } from './getters';
 const client = new NekoClient();
 
 export const getImage = async (type: NekoSfwImageOptions) => {
@@ -28,7 +28,7 @@ export const spoiler = async (text: string) => {
 export const sendImage = async (message: Message, args: string[], type: NekoSfwImageOptions, description: string) => {
     let member;
     if (args.length) {
-        member = await Util.getMember(message, args);
+        member = await getMember(message, args);
         if (!member) return;
     }
 

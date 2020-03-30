@@ -1,12 +1,14 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
-import util from '../../utils/Util';
+
 import { getGuild } from '../../database/mongo';
+import { getMember } from '../../utils/getters';
+import { newEmbed, nicerDates } from '../../utils/Util';
 
 const callback = async (message: Message, args: string[]) => {
     if (!message.guild) return;
     const guildSettings = await getGuild(message.guild.id);
-    const output = util.newEmbed(true);
+    const output = newEmbed(true);
 
     if (!args.length) {
         const modLog = guildSettings.modLog.find(ele => ele.userId === message.author.id);
@@ -17,13 +19,13 @@ const callback = async (message: Message, args: string[]) => {
             .setThumbnail(message.author.displayAvatarURL({ size: 256, dynamic: true }))
             .addFields(
                 modLog.warns.map(warn => {
-                    return { name: `Moderator: ${warn.moderator.username} ~ ${util.nicerDates(warn.date)}`, value: warn.reason };
+                    return { name: `Moderator: ${warn.moderator.username} ~ ${nicerDates(warn.date)}`, value: warn.reason };
                 })
             );
         return message.channel.send(output);
     }
 
-    const member = await util.getMember(message, args);
+    const member = await getMember(message, args);
     if (!member) return;
 
     const modLog = guildSettings.modLog.find(ele => ele.userId === member.id);
@@ -34,7 +36,7 @@ const callback = async (message: Message, args: string[]) => {
         .setThumbnail(member.user.displayAvatarURL({ size: 256, dynamic: true }))
         .addFields(
             modLog.warns.map(warn => {
-                return { name: `Moderator: ${warn.moderator.username} ~ ${util.nicerDates(warn.date)}`, value: warn.reason };
+                return { name: `Moderator: ${warn.moderator.username} ~ ${nicerDates(warn.date)}`, value: warn.reason };
             })
         );
     return message.channel.send(output);

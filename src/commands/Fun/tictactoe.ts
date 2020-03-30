@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import ttt from 'tictactoejs';
-import Util from '../../utils/Util';
+import { wrongSyntax } from '../../utils/Util';
 
 const callback = async (message: Message, _args: string[]) => {
     const game = new ttt.TicTacToe();
@@ -16,10 +16,10 @@ const callback = async (message: Message, _args: string[]) => {
             collector.stop();
             msg.delete();
             board.delete();
-            return Util.wrongSyntax(message, 'Cancelled the game!');
+            return wrongSyntax(message, 'Cancelled the game!');
         }
         const [x, y] = msg.content.split(' ');
-        if (!game.legalMoves().some((ele: any) => ele.x === (x | 0) && ele.y === (y | 0))) return Util.wrongSyntax(msg, 'Invalid move!');
+        if (!game.legalMoves().some((ele: any) => ele.x === (x | 0) && ele.y === (y | 0))) return wrongSyntax(msg, 'Invalid move!');
 
         if (game.status() === 'in progress') {
             game.turn();

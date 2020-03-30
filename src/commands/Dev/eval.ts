@@ -1,13 +1,14 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
-import Util from '../../utils/Util';
+import * as Util from '../../utils/Util';
+import * as Getters from '../../utils/getters';
 import DB, { getGuild } from '../../database/mongo';
 import VenClient from '../../interfaces/Client';
 import { uploadHaste } from '../../utils/hastebin';
 
 const callback = async (message: Message, args: string[]) => {
     // @ts-ignore
-    const [client, commands, msg, guild, channel, db, getguild, util, guildsettings] = [
+    const [client, commands, msg, guild, channel, db, getguild, util, getters, guildsettings] = [
         message.client as VenClient,
         (message.client as VenClient).commands,
         message,
@@ -16,6 +17,7 @@ const callback = async (message: Message, args: string[]) => {
         DB,
         getGuild,
         Util,
+        Getters,
         await getGuild(message.guild!.id)
     ];
     try {

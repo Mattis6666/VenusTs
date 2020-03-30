@@ -1,12 +1,12 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
-import Util from '../../utils/Util';
+import { newEmbed, fetch } from '../../utils/Util';
 
 const callback = (message: Message, args: string[]) => {
-    Util.fetch('http://api.urbandictionary.com/v0/define?term=' + args.join('%20')).then(data => {
+    fetch('http://api.urbandictionary.com/v0/define?term=' + args.join('%20')).then(data => {
         if (!data) return;
         data = data.list[0];
-        const output = Util.newEmbed()
+        const output = newEmbed()
             .setTitle(data.word)
             .setURL(data.permalink)
             .setImage('https://wjlta.files.wordpress.com/2013/07/ud-logo.jpg')

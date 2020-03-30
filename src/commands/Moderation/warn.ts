@@ -1,18 +1,19 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
-import util from '../../utils/Util';
+
 import { getGuild } from '../../database/mongo';
+import { newEmbed } from '../../utils/Util';
+import { getMember } from '../../utils/getters';
 
 const callback = async (message: Message, args: string[]) => {
     if (!message.guild) return;
-    const member = await util.getMember(message, args);
+    const member = await getMember(message, args);
     if (!member) return;
     const reason = args.length > 1 ? args.splice(1).join(' ') : 'No reason provided';
     const guildSettings = await getGuild(message.guild.id);
     await guildSettings.createWarn(message, member.user.id, reason);
     guildSettings.save();
-    const output = util
-        .newEmbed()
+    const output = newEmbed()
         .setTitle('Warn')
         .setDescription(`${member} has successfully been warned.`)
         .addFields([

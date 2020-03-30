@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import VenClient from '../../interfaces/Client';
 import { getGuild } from '../../database/mongo';
-import Util from '../../utils/Util';
+import { wrongSyntax } from '../../utils/Util';
 
 const callback = async (message: Message, args: string[]) => {
     const client = message.client as VenClient;
@@ -17,7 +17,7 @@ const callback = async (message: Message, args: string[]) => {
         return message.channel.send('All commands have been enabled!');
     }
     const commands = args.map(cmd => client.commands.find(command => command.name === cmd || command.aliases.includes(cmd))?.name).filter(cmd => cmd);
-    if (!commands.length) return Util.wrongSyntax(message, 'You did not provide any valid commands to enable!');
+    if (!commands.length) return wrongSyntax(message, 'You did not provide any valid commands to enable!');
 
     commands.forEach(command => {
         if (command && guildSettings.settings.disabledCommands.includes(command))

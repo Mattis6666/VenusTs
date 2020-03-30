@@ -1,13 +1,14 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import VenClient from '../../interfaces/Client';
-import util from '../../utils/Util';
 import config from '../../utils/config';
+import { wrongSyntax, newEmbed } from '../../utils/Util';
+import { getPrefix } from '../../utils/getters';
 
 const callback = async (message: Message, args: string[]) => {
     const client = message.client as VenClient;
-    const prefix = message.guild ? await util.getPrefix(client, message.guild.id) : config.defaultPrefix;
-    const output = util.newEmbed(true);
+    const prefix = message.guild ? await getPrefix(client, message.guild.id) : config.defaultPrefix;
+    const output = newEmbed(true);
     if (!args.length) {
         const commands: any = {
             DEVELOPMENT: [],
@@ -39,7 +40,7 @@ const callback = async (message: Message, args: string[]) => {
 
     const name = args[0].toLowerCase();
     const command = client.commands.get(name) || client.commands.find(c => c.aliases && c.aliases.includes(name));
-    if (!command) return util.wrongSyntax(message, "That's not a valid command!");
+    if (!command) return wrongSyntax(message, "That's not a valid command!");
     if (command.developerOnly && !config.developers.includes(message.author.id)) return;
 
     output.setAuthor(command.name.toUpperCase()).addFields([

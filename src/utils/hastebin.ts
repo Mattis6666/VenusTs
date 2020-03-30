@@ -1,7 +1,7 @@
-import Util from './Util';
+import { fetch } from './Util';
 
 export const uploadHaste = async (text: string) => {
-    const result = await Util.fetch('https://hasteb.in/documents', {
+    const result = await fetch('https://hasteb.in/documents', {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
         body: text,

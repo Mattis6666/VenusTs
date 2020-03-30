@@ -5,7 +5,7 @@ import Client from './interfaces/Client';
 import Command from './interfaces/Command';
 import { Guild } from './database/schemas/GuildSchema';
 import db from './database/mongo';
-import Util from './utils/Util';
+import { wrongSyntax } from './utils/Util';
 
 const VenClient = new Client({
     disableMentions: 'everyone',
@@ -62,16 +62,16 @@ VenClient.on('message', async (message: Message) => {
         if (message.guild && message.guild.me && message.channel.type === 'text') {
             if (guildSettings && guildSettings.settings.disabledCommands.includes(command.name)) return;
             if (command.userPermissions && message.member && !message.channel.permissionsFor(message.member)!.has(command.userPermissions))
-                return Util.wrongSyntax(message, `This command requires you to have the \`${command.userPermissions}\` permission!`);
+                return wrongSyntax(message, `This command requires you to have the \`${command.userPermissions}\` permission!`);
             if (command.botPermissions && !message.channel.permissionsFor(message.guild.me)!.has(command.botPermissions)) {
-                return Util.wrongSyntax(message, `I need the the \`${command.userPermissions}\` permission to use this command!`);
+                return wrongSyntax(message, `I need the the \`${command.userPermissions}\` permission to use this command!`);
             }
         }
     }
-    if (command.guildOnly && !message.guild) return Util.wrongSyntax(message, 'This command can only be used on a server!');
-    if (command.dmOnly && message.guild) return Util.wrongSyntax(message, 'This command can only be used in my DMs!');
+    if (command.guildOnly && !message.guild) return wrongSyntax(message, 'This command can only be used on a server!');
+    if (command.dmOnly && message.guild) return wrongSyntax(message, 'This command can only be used in my DMs!');
     if (command.requiresArgs && args.length < command.requiresArgs)
-        return Util.wrongSyntax(
+        return wrongSyntax(
             message,
             `This command requires ${command.requiresArgs} arguments, but you ${args.length ? 'only provided ' + args.length : "didn't provide any"}!`
         );
