@@ -4,6 +4,7 @@ import config from './utils/config';
 import Client from './interfaces/Client';
 import Command from './interfaces/Command';
 import db from './database/mongo';
+import Util from './utils/Util';
 
 const VenClient = new Client({
     disableMentions: 'everyone',
@@ -56,15 +57,20 @@ VenClient.on('message', async (message: Message) => {
     if (!config.developers.includes(message.author.id)) {
         if (command.developerOnly) return;
         if (message.guild && message.guild.me && message.channel.type === 'text') {
+            if (command.userPermissions && message.member && !message.channel.permissionsFor(message.member)!.has(command.userPermissions))
+                return Util.wrongSyntax(message, `This command requires you to have the \`${command.userPermissions}\` permission!`);
             if (command.botPermissions && !message.channel.permissionsFor(message.guild.me)!.has(command.botPermissions)) {
-                return;
+                return Util.wrongSyntax(message, `I need the the \`${command.userPermissions}\` permission to use this command!`);
             }
-            if (command.userPermissions && message.member && !message.channel.permissionsFor(message.member)!.has(command.userPermissions)) return;
         }
     }
-    if (command.guildOnly && !message.guild) return;
-    if (command.dmOnly && message.guild) return;
-    if (command.requiresArgs && args.length < command.requiresArgs) return;
+    if (command.guildOnly && !message.guild) return Util.wrongSyntax(message, 'This command can only be used on a server!');
+    if (command.dmOnly && message.guild) return Util.wrongSyntax(message, 'This command can only be used in my DMs!');
+    if (command.requiresArgs && args.length < command.requiresArgs)
+        return Util.wrongSyntax(
+            message,
+            `This command requires ${command.requiresArgs} arguments, but you ${args.length ? 'only provided ' + args.length : "didn't provide any"}!`
+        );
 
     command.callback(message, args);
 });

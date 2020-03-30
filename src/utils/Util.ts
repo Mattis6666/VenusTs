@@ -71,6 +71,7 @@ export default {
         return null;
     },
     async wrongSyntax(message: Message, text: string) {
+        if (!message.guild) return;
         const msg = await message.channel.send(text);
         msg.delete({ timeout: 1000 * 10 });
         message.delete({ timeout: 1000 * 10 });
