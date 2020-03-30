@@ -3,6 +3,7 @@ import { Message } from 'discord.js';
 import config from './utils/config';
 import Client from './interfaces/Client';
 import Command from './interfaces/Command';
+import { Guild } from './database/schemas/GuildSchema';
 import db from './database/mongo';
 import Util from './utils/Util';
 
@@ -32,7 +33,9 @@ VenClient.once('ready', () => {
 VenClient.on('message', async (message: Message) => {
     if (message.author.bot || !message.author || (message.guild && !message.member) || !message.client || !message.channel) return;
 
-    const guildSettings: any = message.guild ? VenClient.guildSettings.get(message.guild.id) || (await db.findOne({ guildId: message.guild.id })) : null;
+    const guildSettings: Guild | null = message.guild
+        ? VenClient.guildSettings.get(message.guild.id) || (await db.findOne({ guildId: message.guild.id }))
+        : null;
     if (message.guild && guildSettings && !VenClient.guildSettings.has(message.guild.id)) {
         VenClient.guildSettings.set(message.guild.id, guildSettings);
     }
@@ -57,6 +60,7 @@ VenClient.on('message', async (message: Message) => {
     if (!config.developers.includes(message.author.id)) {
         if (command.developerOnly) return;
         if (message.guild && message.guild.me && message.channel.type === 'text') {
+            if (guildSettings && guildSettings.settings.disabledCommands.includes(command.name)) return;
             if (command.userPermissions && message.member && !message.channel.permissionsFor(message.member)!.has(command.userPermissions))
                 return Util.wrongSyntax(message, `This command requires you to have the \`${command.userPermissions}\` permission!`);
             if (command.botPermissions && !message.channel.permissionsFor(message.guild.me)!.has(command.botPermissions)) {

@@ -7,9 +7,17 @@ import { uploadHaste } from '../../utils/hastebin';
 
 const callback = async (message: Message, args: string[]) => {
     // @ts-ignore
-    const client = message.client as VenClient;
-    // @ts-ignore
-    const [db, getguild, util] = [DB, getGuild, Util];
+    const [client, commands, msg, guild, channel, db, getguild, util, guildsettings] = [
+        message.client as VenClient,
+        (message.client as VenClient).commands,
+        message,
+        message.guild,
+        message.channel,
+        DB,
+        getGuild,
+        Util,
+        await getGuild(message.guild!.id)
+    ];
     try {
         let output =
             (await eval(`( async () => {
@@ -38,8 +46,8 @@ export const command: Command = {
     description: '',
     usage: '',
     developerOnly: true,
-    guildOnly: true,
-    dmOnly: true,
+    guildOnly: false,
+    dmOnly: false,
     requiresArgs: 1,
     userPermissions: '',
     botPermissions: '',

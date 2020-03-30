@@ -7,5 +7,5 @@ export const uploadHaste = async (text: string) => {
         body: text,
         redirect: 'follow'
     });
-    return `https://hasteb.in/${result.key}`;
+    return result ? `https://hasteb.in/${result.key}` : 'Failed to upload to hastebin!';
 };
