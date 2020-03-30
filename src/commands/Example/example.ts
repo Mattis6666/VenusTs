@@ -1,11 +1,11 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import VenClient from '../../interfaces/Client';
-//import util from '../../utils/Util';
 
-const callback = (message: Message, _args: string[]) => {
+const callback = (message: Message, args: string[]) => {
     const client = message.client as VenClient;
     client;
+    args;
     return;
 };
 
@@ -15,7 +15,7 @@ export const command: Command = {
     aliases: [],
     description: '',
     usage: '',
-    developerOnly: true,
+    developerOnly: false,
     guildOnly: false,
     dmOnly: false,
     requiresArgs: 0,
