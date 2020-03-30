@@ -16,10 +16,10 @@ const callback = (message: Message, args: string[]) => {
 
 export const command: Command = {
     name: 'emote',
-    category: 'DEVELOPMENT',
+    category: 'UTILITY',
     aliases: ['emoji'],
-    description: '',
-    usage: '',
+    description: 'Get the link of any emote',
+    usage: '<emoji> (you can add as many as you wish)',
     developerOnly: false,
     guildOnly: false,
     dmOnly: false,
