@@ -18,13 +18,11 @@
     "author": "",
     "license": "ISC",
     "description": "",
-    "devDependencies": {
-        "@types/node": "^13.9.3"
-    },
     "dependencies": {
         "@types/config": "^0.0.36",
         "@types/got": "^9.6.9",
         "@types/mongoose": "^5.7.7",
+        "@types/node": "^13.9.8",
         "@types/node-fetch": "^2.5.5",
         "@types/tictactoejs": "^1.0.0",
         "@types/ws": "^7.2.3",
