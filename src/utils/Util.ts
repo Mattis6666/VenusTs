@@ -37,8 +37,8 @@ export const fetch = async (RequestInfo: RequestInfo, requestOptions?: RequestIn
 };
 
 export const wrongSyntax = async (message: Message, text: string) => {
-    if (!message.guild) return;
     const msg = await message.channel.send(text);
+    if (!message.guild) return;
     msg.delete({ timeout: 1000 * 10 });
     message.delete({ timeout: 1000 * 10 });
 };

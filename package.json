@@ -26,6 +26,7 @@
         "@types/got": "^9.6.9",
         "@types/mongoose": "^5.7.7",
         "@types/node-fetch": "^2.5.5",
+        "@types/tictactoejs": "^1.0.0",
         "@types/ws": "^7.2.3",
         "config": "^3.3.0",
         "discord.js": "^12.1.1",

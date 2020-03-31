@@ -62,6 +62,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-13.9.4.tgz#63c58e67999bfbfa688dd49ed84639b01b543606"
   integrity sha512-uzaaDXey/NI2l7kU+xCgWu852Dh/zmf6ZKApc0YQEQpY4DaiZFmLN29E6SLHJfSedj3iNWAndSwfSBpEDadJfg==
 
+"@types/tictactoejs@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/tictactoejs/-/tictactoejs-1.0.0.tgz#e9f6f21816b830decf423639615aa48f9ec8f3f6"
+  integrity sha512-wmfVAkQ12ZDQFJM4DJcnLPbpETT55PWY2gG3g4OYQnpJdzGdjVURLXCHH9Lq8y+wIvhjYftQbsOOdkIAHEw/Tw==
+
 "@types/tough-cookie@*":
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-2.3.6.tgz#c880579e087d7a0db13777ff8af689f4ffc7b0d5"
