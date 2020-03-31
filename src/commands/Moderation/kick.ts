@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import { getMember } from '../../utils/getters';
 import { isMemberHigher } from '../../utils/checks';
-import { wrongSyntax, newEmbed } from '../../utils/Util';
+import { wrongSyntax, newEmbed, trimString } from '../../utils/Util';
 
 const callback = async (message: Message, args: string[]) => {
     if (!message.guild || !message.member) return;
@@ -20,11 +20,11 @@ const callback = async (message: Message, args: string[]) => {
             const reason = args.slice(1).join(' ') || 'No reason provided.';
             const output = newEmbed(true)
                 .setTitle('Kick')
-                .setDescription(`You have been kicked from ${message.guild!.name}`)
+                .setDescription(`You have been kicked from ${message.guild!.name}! 👢`)
                 .addFields([
                     { name: 'User', value: member.user.tag },
                     { name: 'Moderator', value: message.author.tag },
-                    { name: 'Reason', value: reason }
+                    { name: 'Reason', value: trimString(reason, 1024) }
                 ]);
 
             await member.send(output).catch(() => null);
@@ -36,7 +36,7 @@ const callback = async (message: Message, args: string[]) => {
             confirmed = true;
             collector.stop();
 
-            return message.channel.send(output.setDescription('User has been kicked'));
+            return message.channel.send(output.setDescription('User has been kicked! 👢'));
         } else if (msg.content.toLowerCase() === 'no' || msg.content.toLowerCase() === 'n') {
             msg.delete({ timeout: 10 * 1000 });
             m.delete({ timeout: 10 * 1000 });

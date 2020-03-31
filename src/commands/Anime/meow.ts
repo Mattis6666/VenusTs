@@ -8,7 +8,7 @@ const callback = (message: Message, args: string[]) => {
 
 export const command: Command = {
     name: 'meow',
-    category: 'MODERATION',
+    category: 'ANIME',
     aliases: [],
     description: 'Get a random meow image.',
     extended: '',

@@ -33,9 +33,9 @@ const callback = async (message: Message, args: string[]) => {
 export const command: Command = {
     name: 'enable',
     category: 'SETTINGS',
-    aliases: [],
-    description: '',
-    usage: '',
+    aliases: ['enablecommand', 'activate'],
+    description: 'Enable one or multiple commands',
+    usage: '<command name | command alias>',
     developerOnly: false,
     requiresArgs: 1,
     guildOnly: true,

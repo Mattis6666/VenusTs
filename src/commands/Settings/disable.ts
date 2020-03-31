@@ -28,8 +28,8 @@ const callback = async (message: Message, args: string[]) => {
 export const command: Command = {
     name: 'disable',
     category: 'SETTINGS',
-    aliases: [],
-    description: '',
+    aliases: ['disablecommand', 'deactivate'],
+    description: 'Disable one or multiple commands',
     usage: '<command name | command alias>',
     developerOnly: false,
     requiresArgs: 1,

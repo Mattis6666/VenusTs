@@ -1,6 +1,11 @@
 import { Message, TextChannel, MessageEmbed, Client } from 'discord.js';
 import config from './config';
 import nodeFetch, { RequestInfo, RequestInit } from 'node-fetch';
+import ordinal from 'ordinal';
+
+export const trimString = (str: string, n: number) => {
+    return str.length > n ? str.substring(0, n - 3) + '...' : str;
+};
 
 export const newEmbed = (timestamp: boolean = false) => {
     return timestamp ? new MessageEmbed().setColor('RANDOM').setTimestamp() : new MessageEmbed().setColor('RANDOM');
@@ -43,6 +48,11 @@ export const numToMonth = (num: number) => {
     return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][num];
 };
 
-export const nicerDates = (date: Date) => {
-    return `${numToMonth(date.getMonth())} ${date.getDate()} ${date.getFullYear()}`;
+export const numToOrdinal = (num: number) => {
+    return ordinal(num);
+};
+
+export const nicerDates = (date: Date | number) => {
+    if (!(date instanceof Date)) date = new Date(date);
+    return `${numToMonth(date.getMonth())} ${ordinal(date.getDate())} ${date.getFullYear()}`;
 };

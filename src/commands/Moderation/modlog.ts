@@ -3,7 +3,7 @@ import Command from '../../interfaces/Command';
 
 import { getGuild } from '../../database/mongo';
 import { getMember } from '../../utils/getters';
-import { newEmbed, nicerDates } from '../../utils/Util';
+import { newEmbed, nicerDates, trimString } from '../../utils/Util';
 
 const callback = async (message: Message, args: string[]) => {
     if (!message.guild) return;
@@ -19,7 +19,7 @@ const callback = async (message: Message, args: string[]) => {
             .setThumbnail(message.author.displayAvatarURL({ size: 256, dynamic: true }))
             .addFields(
                 modLog.warns.map(warn => {
-                    return { name: `Moderator: ${warn.moderator.username} ~ ${nicerDates(warn.date)}`, value: warn.reason };
+                    return { name: `Moderator: ${warn.moderator.username} ~ ${nicerDates(warn.date)}`, value: trimString(warn.reason, 1024) };
                 })
             );
         return message.channel.send(output);
@@ -45,10 +45,10 @@ const callback = async (message: Message, args: string[]) => {
 export const command: Command = {
     name: 'modlog',
     category: 'MODERATION',
-    aliases: [],
-    description: '',
-    usage: '',
-    developerOnly: true,
+    aliases: ['ml', 'warns', 'infractions'],
+    description: "Check a member's mod-log or your own.",
+    usage: '[user (mention, username or ID)]',
+    developerOnly: false,
     requiresArgs: 0,
     guildOnly: true,
     dmOnly: false,

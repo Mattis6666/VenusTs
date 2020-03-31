@@ -46,11 +46,11 @@ const callback = async (message: Message, _args: string[]) => {
 
 export const command: Command = {
     name: 'tictactoe',
-    category: 'DEVELOPMENT',
-    aliases: [],
-    description: '',
+    category: 'FUN',
+    aliases: ['ttt'],
+    description: 'Play a game of TicTacToe against the bot!',
     usage: '',
-    developerOnly: true,
+    developerOnly: false,
     guildOnly: false,
     dmOnly: false,
     requiresArgs: 0,

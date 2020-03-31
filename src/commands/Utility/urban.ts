@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
-import { newEmbed, fetch } from '../../utils/Util';
+import { newEmbed, fetch, trimString, nicerDates } from '../../utils/Util';
 
 const callback = (message: Message, args: string[]) => {
     fetch('http://api.urbandictionary.com/v0/define?term=' + args.join('%20')).then(data => {
@@ -10,20 +10,20 @@ const callback = (message: Message, args: string[]) => {
             .setTitle(data.word)
             .setURL(data.permalink)
             .setImage('https://wjlta.files.wordpress.com/2013/07/ud-logo.jpg')
-            .setDescription(data.definition.replace(/(\[|\])/g, ''))
-            .addField('Example', data.example.replace(/(\[|\])/g, ''))
-            .setFooter(`👍 ${data.thumbs_up} | 👎 ${data.thumbs_down} | 👤 ${data.author} | 📆 ${data.written_on.replace(/T.+?Z/, '')}`);
+            .setDescription(trimString(data.definition.replace(/(\[|\])/g, ''), 2048))
+            .addField('Example', trimString(data.example.replace(/(\[|\])/g, ''), 1024))
+            .setFooter(`👍 ${data.thumbs_up} | 👎 ${data.thumbs_down} | 👤 ${data.author} | 📆 ${nicerDates(Date.parse(data.written_on))}`);
 
         return message.channel.send(output);
     });
 };
 
 export const command: Command = {
-    name: 'urban',
+    name: 'urbandictionary',
     category: 'UTILITY',
-    aliases: [],
-    description: 'urban',
-    usage: '',
+    aliases: ['urban', 'ud'],
+    description: 'Get a definition from urbandictionary.com',
+    usage: '<word to look up>',
     developerOnly: false,
     requiresArgs: 1,
     guildOnly: false,

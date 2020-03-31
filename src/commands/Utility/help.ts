@@ -16,7 +16,7 @@ const callback = async (message: Message, args: string[]) => {
             SETTINGS: [],
             UTILITY: [],
             MISC: ['a'],
-            FUN: ['a'],
+            FUN: [],
             ANIME: []
         };
         client.commands.forEach(command => {
@@ -55,9 +55,9 @@ export const command: Command = {
     name: 'help',
     category: 'UTILITY',
     aliases: [],
-    description: '',
-    usage: '',
-    developerOnly: true,
+    description: 'You know if you are reading this d-(O.O)-b',
+    usage: '[command name | command alias]',
+    developerOnly: false,
     guildOnly: false,
     dmOnly: false,
     requiresArgs: 0,
