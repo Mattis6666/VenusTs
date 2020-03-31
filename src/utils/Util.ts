@@ -1,4 +1,4 @@
-import { Message, TextChannel, MessageEmbed, Client, GuildMember } from 'discord.js';
+import { Message, TextChannel, MessageEmbed, Client } from 'discord.js';
 import config from './config';
 import nodeFetch, { RequestInfo, RequestInit } from 'node-fetch';
 
@@ -29,10 +29,6 @@ export const fetch = async (RequestInfo: RequestInfo, requestOptions?: RequestIn
         })
         .catch(console.error);
     return result;
-};
-
-export const isMemberHigher = (member1: GuildMember, member2: GuildMember) => {
-    return member1.roles.highest.comparePositionTo(member2.roles.highest) > 0;
 };
 
 export const wrongSyntax = async (message: Message, text: string) => {
