@@ -7,7 +7,7 @@
         "start": "node out/src/index",
         "dev": "npm run build && export NODE_ENV=development && npm run start",
         "production": "npm run build && export NODE_ENV=production && npm run start",
-        "cleanup": "rm -rf out/*",
+        "clean": "rm -rf out/*",
         "lint": "eslint . --ext .ts --fix",
         "reinstall": "npm run cleanCache && npm run deleteModules && npm run deleteLock && npm run installModules",
         "cleanCache": "npm cache clean --force",
@@ -15,8 +15,8 @@
         "deleteLock": "rm yarn.lock",
         "installModules": "yarn install"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "VenNeptury",
+    "license": "UNLICENSED",
     "description": "",
     "dependencies": {
         "@types/config": "^0.0.36",

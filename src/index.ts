@@ -1,13 +1,12 @@
-import fs from 'fs';
 import { Message } from 'discord.js';
 import config from './utils/config';
 import Client from './interfaces/Client';
-import Command from './interfaces/Command';
 import { Guild } from './database/schemas/GuildSchema';
 import db from './database/mongo';
-import { wrongSyntax } from './utils/Util';
+import { wrongSyntax, handleError } from './utils/Util';
+import { init } from './init/init';
 
-const VenClient = new Client({
+export const VenClient = new Client({
     disableMentions: 'everyone',
     presence: {
         activity: {
@@ -17,17 +16,11 @@ const VenClient = new Client({
     }
 });
 
-fs.readdirSync(__dirname + '/commands/').forEach(folder => {
-    const commandFiles = fs.readdirSync(__dirname + `/commands/${folder}`).filter(file => file.endsWith('.js'));
-    for (const file of commandFiles) {
-        const command: Command = require(__dirname + `/commands/${folder}/${file}`).command;
-        if (!command.name) throw new Error('ERROR! INVALID COMMAND BODY: ' + file);
-        VenClient.commands.set(command.name, command);
-    }
-});
+init();
 
 VenClient.once('ready', () => {
     console.info('Logged in!');
+    console.log(VenClient.languages);
 });
 
 VenClient.on('message', async (message: Message) => {
@@ -76,7 +69,11 @@ VenClient.on('message', async (message: Message) => {
             `This command requires ${command.requiresArgs} arguments, but you ${args.length ? 'only provided ' + args.length : "didn't provide any"}!`
         );
 
-    command.callback(message, args);
+    try {
+        command.callback(message, args);
+    } catch (err) {
+        handleError(VenClient, err);
+    }
 });
 
 VenClient.login(config.token);
