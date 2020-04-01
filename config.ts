@@ -5,7 +5,7 @@ export const config: Config = {
     mongoString: process.env.MONGO!,
     defaultPrefix: 'v!',
     developers: ['265560538937819137'],
-    errorChannel: '',
+    errorChannel: '678271151054782484',
     imageChannel: '',
     apiKeys: {
         imgur: {

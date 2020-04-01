@@ -43,12 +43,12 @@ const callback = async (message: Message, args: string[]) => {
             { name: '💽 Episodes', value: media.episodes || media.chapters || '-', inline: true },
             {
                 name: '🗓️ Started on',
-                value: media.endDate.month ? `${numToMonth(media.startDate.month)} ${numToOrdinal(media.startDate.day)} ${media.startDate.year}` : '-',
+                value: media.endDate.month ? `${numToMonth(media.startDate.month - 1)} ${numToOrdinal(media.startDate.day)} ${media.startDate.year}` : '-',
                 inline: true
             },
             {
                 name: '🗓️ Finished on',
-                value: media.endDate.month ? `${numToMonth(media.endDate.month)} ${numToOrdinal(media.endDate.day)} ${media.endDate.year}` : '-',
+                value: media.endDate.month ? `${numToMonth(media.endDate.month - 1)} ${numToOrdinal(media.endDate.day)} ${media.endDate.year}` : '-',
                 inline: true
             }
         ]);
