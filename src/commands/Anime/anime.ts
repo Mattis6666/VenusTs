@@ -41,7 +41,11 @@ const callback = async (message: Message, args: string[]) => {
             { name: '⭐ Average Rating', value: media.averageScore ? media.averageScore + '%' : '-', inline: true },
             { name: '🎬 Format', value: media.format || '-', inline: true },
             { name: '💽 Episodes', value: media.episodes || media.chapters || '-', inline: true },
-            { name: '🗓️ Started on', value: `${numToMonth(media.startDate.month)} ${numToOrdinal(media.startDate.day)} ${media.startDate.year}`, inline: true },
+            {
+                name: '🗓️ Started on',
+                value: media.endDate.month ? `${numToMonth(media.startDate.month)} ${numToOrdinal(media.startDate.day)} ${media.startDate.year}` : '-',
+                inline: true
+            },
             {
                 name: '🗓️ Finished on',
                 value: media.endDate.month ? `${numToMonth(media.endDate.month)} ${numToOrdinal(media.endDate.day)} ${media.endDate.year}` : '-',
