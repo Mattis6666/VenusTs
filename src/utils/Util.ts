@@ -52,7 +52,12 @@ export const numToOrdinal = (num: number) => {
     return ordinal(num);
 };
 
-export const nicerDates = (date: Date | number) => {
+export const nicerDates = (date: Date | number = new Date()) => {
     if (!(date instanceof Date)) date = new Date(date);
     return `${numToMonth(date.getMonth())} ${ordinal(date.getDate())} ${date.getFullYear()}`;
+};
+
+export const nicerTimes = (date: Date | number = new Date()) => {
+    if (!(date instanceof Date)) date = new Date(date);
+    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 };

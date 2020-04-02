@@ -16,7 +16,7 @@ const callback = async (message: Message, args: string[]) => {
 
     client.guildSettings.set(message.guild.id, guildSettings);
 
-    return message.channel.send(`This guild's prefix has successfully been changed to \`${prefix}`);
+    return message.channel.send(`This guild's prefix has successfully been changed to \`${prefix}\``);
 };
 
 export const command: Command = {
