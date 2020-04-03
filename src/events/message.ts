@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import config from '../utils/config';
 import { Guild } from '../database/schemas/GuildSchema';
 import db from '../database/mongo';
-import { wrongSyntax, handleError } from '../utils/Util';
+import { wrongSyntax, handleError, nicerPermissions } from '../utils/Util';
 import Client from '../interfaces/Client';
 
 export default async (VenClient: Client, message: Message) => {
@@ -22,10 +22,7 @@ export default async (VenClient: Client, message: Message) => {
     const prefix = matched ? matched[0] : null;
     if (!prefix || !message.content.startsWith(prefix)) return;
 
-    const args = message.content
-        .slice(prefix.length)
-        .trim()
-        .split(' ');
+    const args = message.content.slice(prefix.length).trim().split(' ');
     const commandName = args.shift()?.toLowerCase();
     if (!commandName) return;
 
@@ -37,9 +34,9 @@ export default async (VenClient: Client, message: Message) => {
         if (message.guild && message.guild.me && message.channel.type === 'text') {
             if (guildSettings && guildSettings.settings.disabledCommands.includes(command.name)) return;
             if (command.userPermissions && message.member && !message.channel.permissionsFor(message.member)!.has(command.userPermissions))
-                return wrongSyntax(message, `This command requires you to have the \`${command.userPermissions}\` permission!`);
+                return wrongSyntax(message, `This command requires you to have the \`${nicerPermissions(command.userPermissions)}\` permission!`);
             if (command.botPermissions && !message.channel.permissionsFor(message.guild.me)!.has(command.botPermissions)) {
-                return wrongSyntax(message, `I need the the \`${command.userPermissions}\` permission to use this command!`);
+                return wrongSyntax(message, `I need the the \`${nicerPermissions(command.userPermissions)}\` permission to use this command!`);
             }
         }
     }

@@ -66,3 +66,11 @@ export const nicerTimes = (date: Date | number = new Date()) => {
     if (!(date instanceof Date)) date = new Date(date);
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 };
+
+export const nicerPermissions = (permission: string) => {
+    return permission
+        .toLowerCase()
+        .split('_')
+        .map(e => e.replace(/\w/, e.charAt(0).toUpperCase()))
+        .join(' ');
+};

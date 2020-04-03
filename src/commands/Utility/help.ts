@@ -15,12 +15,11 @@ const callback = async (message: Message, args: string[]) => {
             MODERATION: [],
             SETTINGS: [],
             UTILITY: [],
-            MISC: ['a'],
             FUN: [],
             ANIME: []
         };
         client.commands.forEach(command => {
-            const category = commands[command.category] || commands.MISC;
+            const category = commands[command.category];
             category.push(`\`${prefix}${command.name}\` - *${command.description}*`);
         });
         output
@@ -32,8 +31,7 @@ const callback = async (message: Message, args: string[]) => {
                 { name: 'Settings', value: commands.SETTINGS.join('\n') },
                 { name: 'Utility', value: commands.UTILITY.join('\n') },
                 { name: 'Fun', value: commands.FUN.join('\n') },
-                { name: 'Anime', value: commands.ANIME.join('\n') },
-                { name: 'Miscellaneous', value: commands.MISC.join('\n') }
+                { name: 'Anime', value: commands.ANIME.join('\n') }
             ]);
         return message.channel.send(output);
     }
@@ -54,8 +52,8 @@ const callback = async (message: Message, args: string[]) => {
 export const command: Command = {
     name: 'help',
     category: 'UTILITY',
-    aliases: [],
-    description: 'You know if you are reading this d-(O.O)-b',
+    aliases: ['h', 'commands', 'getstarted'],
+    description: 'You are here d-(O.O)-b',
     usage: '[command name | command alias]',
     developerOnly: false,
     guildOnly: false,
