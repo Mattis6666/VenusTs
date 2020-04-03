@@ -4,7 +4,7 @@ import { fact } from '../../utils/nekos';
 
 const callback = async (message: Message, _args: string[]) => {
     const result = await fact();
-    return message.channel.send(`${result}, VenNeptury`);
+    return message.channel.send(`${result}, ${message.author.username}`);
 };
 
 export const command: Command = {
