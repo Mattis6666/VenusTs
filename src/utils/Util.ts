@@ -2,6 +2,8 @@ import { Message, TextChannel, MessageEmbed, Client } from 'discord.js';
 import config from './config';
 import nodeFetch, { RequestInfo, RequestInit } from 'node-fetch';
 import ordinal from 'ordinal';
+import { logError } from './winston';
+import { inspect } from 'util';
 
 export const trimString = (str: string, n: number) => {
     return str.length > n ? str.substring(0, n - 3) + '...' : str;
@@ -17,11 +19,14 @@ export const clean = (text: string) => {
     } else return text;
 };
 
-export const handleError = async (client: Client, err: Error) => {
-    console.error(err);
+export const handleError = async (client: Client, err: Error | Object) => {
+    logError(err);
     const errorChannel = client.channels.cache.get(config.errorChannel) || (await client.channels.fetch(config.errorChannel));
     (errorChannel as TextChannel).send(
-        config.developers.map(async (dev: string) => client.users.cache.get(dev) || (await client.users.fetch(dev))).join(' ') + '\n```' + err.stack + '```'
+        (await Promise.all(config.developers.map(dev => client.users.cache.get(dev) || client.users.fetch(dev)))).join(' ') +
+            '\n```' +
+            (err instanceof Error ? err.stack : inspect(err)) +
+            '```'
     );
 };
 

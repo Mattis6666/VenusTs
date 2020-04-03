@@ -2,7 +2,7 @@ import winston from 'winston';
 import chalk from 'chalk';
 
 export const logger = winston.createLogger({
-    transports: [new winston.transports.Console(), new winston.transports.File({ filename: 'log' })],
+    transports: [new winston.transports.Console(), new winston.transports.File({ filename: 'log.winston' })],
     format: winston.format.printf(log => `[${date()}] ${log.message}`)
 });
 

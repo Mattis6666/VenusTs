@@ -11,7 +11,9 @@ export const getMember = async (message: Message, args: string[]) => {
     const member = message.mentions.members?.first() || message.guild.members.cache.get(args[0]);
     if (member) return member;
 
-    const memberSearch = message.guild.members.cache.filter(member => member.displayName.toLowerCase().includes(args[0].toLowerCase()));
+    const memberSearch = message.guild.members.cache.filter(
+        member => member.user.username.toLowerCase().includes(args[0].toLowerCase()) || member.displayName.toLowerCase().includes(args[0].toLowerCase())
+    );
     if (memberSearch.size === 1) return memberSearch.first();
     if (!memberSearch.size) {
         wrongSyntax(message, 'You did not provide a valid member. Please run the command again and provide one.');
