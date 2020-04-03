@@ -3,14 +3,14 @@ import Command from '../../interfaces/Command';
 import { Message } from 'discord.js';
 
 const callback = (message: Message, args: string[]) => {
-    return sendImage(message, args, 'foxGirl', '{{USER}} shows you this cute foxgirl, {{MEMBER}}!');
+    return sendImage(message, args, 'kemonomimi', '{{USER}} shows you this cute kemonomimi, {{MEMBER}}!');
 };
 
 export const command: Command = {
-    name: 'foxgirl',
+    name: 'kemonomimi',
     category: 'ANIME',
-    aliases: ['fox', 'foxg', 'fgirl'],
-    description: 'Get a random foxgirl image.',
+    aliases: ['kemomimi', 'kemo', 'animalears'],
+    description: 'Get a random kemonomimi image.',
     extended: '',
     usage: '[user]',
     developerOnly: false,

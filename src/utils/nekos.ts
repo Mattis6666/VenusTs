@@ -5,22 +5,19 @@ import { getMember } from './getters';
 const client = new NekoClient();
 
 export const getImage = async (type: NekoSfwImageOptions) => {
-    return (await client.sfw[type]()).url;
+    return (await client.sfw[type]())?.url;
 };
 export const getHentai = async (type: NekoNsfwImageOptions) => {
-    return (await client.nsfw[type]()).url;
+    return (await client.nsfw[type]())?.url;
 };
 export const OwOify = async (text: string) => {
-    return (await client.sfw.OwOify({ text: text })).owo;
+    return (await client.sfw.OwOify({ text: text }))?.owo;
 };
-export const chat = async (text: string) => {
-    return await client.sfw.chat({ text: text });
-};
-export const eightball = async (text: string) => {
-    return await client.sfw['8Ball']({ text: text });
+export const eightball = async () => {
+    return await client.sfw['8Ball']({ text: '' });
 };
 export const fact = async () => {
-    return await client.sfw.fact();
+    return (await client.sfw.fact()).fact;
 };
 export const spoiler = async (text: string) => {
     return await client.sfw.spoiler({ text: text });

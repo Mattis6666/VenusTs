@@ -9,7 +9,7 @@ const callback = (message: Message, args: string[]) => {
 export const command: Command = {
     name: 'smug',
     category: 'ANIME',
-    aliases: [],
+    aliases: ['proud', 'grin'],
     description: 'Get a random smug image.',
     extended: 'To give your friend a smug look, pass along their name or mention!',
     usage: '[user]',

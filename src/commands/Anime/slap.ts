@@ -9,7 +9,7 @@ const callback = (message: Message, args: string[]) => {
 export const command: Command = {
     name: 'slap',
     category: 'ANIME',
-    aliases: [],
+    aliases: ['whack', 'bash'],
     description: 'Get a random slap image.',
     extended: 'To slap your friend, pass along their name or mention!',
     usage: '[user]',

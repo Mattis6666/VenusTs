@@ -9,7 +9,7 @@ const callback = (message: Message, args: string[]) => {
 export const command: Command = {
     name: 'nekogif',
     category: 'ANIME',
-    aliases: [],
+    aliases: ['ngif', 'nekog'],
     description: 'Get a random neko gif.',
     extended: '',
     usage: '[user]',
