@@ -4,7 +4,26 @@ import VenClient from '../interfaces/Client';
 import { getGuild } from '../database/mongo';
 import config from './config';
 
+export const getUser = async (message: Message, args: string[]) => {
+    if (!args.length) return null;
+    if (!message.guild) {
+        const user = message.mentions.users.first() || message.client.users.cache.get(args[0]) || (await message.client.users.fetch(args[0]));
+        if (user) return user;
+
+        const userSearch = message.client.users.cache.filter(u => u.username.toLowerCase().includes(args[0].toLowerCase()));
+        if (userSearch.size > 1) {
+            wrongSyntax(
+                message,
+                `I found multiple members matching your input: ${
+                    userSearch.size > 3 ? userSearch.size : userSearch.map(r => '`' + r.username + '`').join(', ')
+                }`
+            );
+        } else return wrongSyntax(message, 'Sorry, something went wrong (>_<)');
+    } else return (await getMember(message, args))?.user;
+};
+
 export const getMember = async (message: Message, args: string[]) => {
+    if (!args.length) return null;
     if (!message.guild) {
         throw new SyntaxError('getMember was used in a DmChannel.');
     }

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import config from '../utils/config';
 import Guild from './schemas/GuildSchema';
+import { logError, logInfo } from '../utils/winston';
 
 mongoose.connect(config.mongoString, {
     useCreateIndex: true,
@@ -10,11 +11,9 @@ mongoose.connect(config.mongoString, {
 });
 const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', err => logError(err));
 
-db.once('open', () => {
-    console.log('Connected to mongoDB Atlas!');
-});
+db.once('open', () => logInfo(`Connected to MongoDB Atlas at ${db.name}!`));
 
 export default Guild;
 

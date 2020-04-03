@@ -1,6 +1,7 @@
 import { Message } from 'discord.js';
 import Command from '../../interfaces/Command';
 import { wrongSyntax } from '../../utils/Util';
+import { emojis } from '../../constants/emojis';
 
 const callback = async (message: Message, args: string[]) => {
     if (!message.guild) return;
@@ -15,6 +16,7 @@ const callback = async (message: Message, args: string[]) => {
             url: `https://cdn.discordapp.com/emojis/${e.slice(e.lastIndexOf(':') + 1, e.lastIndexOf('>'))}${e.startsWith('<a') ? '.gif' : '.png'}`
         };
     });
+    message.channel.startTyping();
     const output = (
         await Promise.all(
             yoinkedEmotes.map(e =>
@@ -23,8 +25,13 @@ const callback = async (message: Message, args: string[]) => {
         )
     ).filter(e => e);
 
-    if (!output.length) return wrongSyntax(message, 'I was not able to do this. This is most likely, because this server does not have any free emoji slots!');
-    return message.channel.send(`I successfully yoinked ${output.length} emotes: ${output.join(' ')}`);
+    message.channel.stopTyping();
+    if (!output.length)
+        return wrongSyntax(
+            message,
+            emojis.fail + ' I was unable to yoink those emotes. This is most likely caused by this server not having any free emoji slots!'
+        );
+    return message.channel.send(`${emojis.success} I successfully yoinked ${output.length} emotes: ${output.join(' ')}`);
 };
 
 export const command: Command = {
