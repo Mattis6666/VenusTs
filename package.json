@@ -13,7 +13,10 @@
         "cleanCache": "npm cache clean --force",
         "deleteModules": "rm -rf node_modules/*",
         "deleteLock": "rm yarn.lock",
-        "installModules": "yarn install"
+        "installModules": "yarn install",
+        "push": "npm run gitAdd && npm run gitCommit && git push",
+        "gitAdd": "git add .",
+        "gitCommit": "git commit -m 'owo'"
     },
     "author": "VenNeptury",
     "license": "UNLICENSED",
