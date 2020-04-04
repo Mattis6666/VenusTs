@@ -6,7 +6,9 @@ import { statusIcons } from '../../constants/statusIcons';
 import { emojis } from '../../constants/emojis';
 
 const callback = async (message: Message, args: string[]) => {
-    const user = (await getUser(message, args)) || message.author;
+    const user = args.length ? await getUser(message, args) : message.author;
+    if (!user) return;
+
     const userActivity = user.presence.activities.filter(p => p.type !== 'CUSTOM_STATUS')[0];
     const userInfo = newEmbed(true)
         .setAuthor(user.username, userActivity?.type === 'STREAMING' ? statusIcons.streaming : statusIcons[user.presence.status])
