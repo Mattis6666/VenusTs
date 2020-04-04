@@ -5,7 +5,7 @@ export const config: Config = {
     mongoString: process.env.MONGO!,
     defaultPrefix: 'v!',
     developers: ['265560538937819137'],
-    infoChannel: '695789021732798474',
+    infoChannel: '695788181970223144',
     errorChannel: '695788085681586273',
     imageChannel: '695788103373291600',
     apiKeys: {
