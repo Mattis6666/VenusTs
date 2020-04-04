@@ -3,6 +3,7 @@ export default interface Config {
     mongoString: string;
     defaultPrefix: string;
     developers: string[];
+    infoChannel: string;
     errorChannel: string;
     imageChannel: string;
     apiKeys: {

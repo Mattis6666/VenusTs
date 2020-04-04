@@ -39,7 +39,7 @@ const callback = async (message: Message, args: string[]) => {
             }\n**Activity:** ${userActivity ? `${emojis[userActivity.type]} ${userActivity.name}` : '-'}\n**Status:** ${
                 user.presence.activities.find(p => p.type === 'CUSTOM_STATUS')?.state || '-'
             }\n**Highest Role:** ${member.roles.highest}\n**Role Colour:** ${member.displayHexColor.toUpperCase()}\n**Nitro Boosting:** ${
-                member.premiumSince ? `${emojis.success} since ${nicerDates(member.premiumSince)}` : emojis.fail
+                member.premiumSince ? `${emojis.success} Since ${nicerDates(member.premiumSince)}` : emojis.fail
             }`
         );
 

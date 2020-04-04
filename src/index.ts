@@ -11,7 +11,7 @@ export const VenClient = new Client({
     presence: {
         activity: {
             name: `${config.defaultPrefix}help`,
-            type: 'STREAMING',
+            type: 'LISTENING',
             url: 'https://www.twitch.tv/.'
         }
     }
